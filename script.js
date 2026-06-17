@@ -59,10 +59,17 @@ function addTask(title) {
 
 function deleteTask(taskId) {
   // Intern 2: remove the selected task from the tasks array.
+  tasks = tasks.filter(task => task.id !== taskId);
+  renderTasks();
 }
 
 function toggleTaskCompleted(taskId) {
   // Intern 2: switch the selected task between pending and completed.
+  const task = tasks.find(task => task.id === taskId);
+  if (task) {
+    task.completed = !task.completed;
+  }
+  renderTasks();
 }
 
 function setFilter(filterName) {

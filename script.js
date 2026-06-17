@@ -59,6 +59,8 @@ function addTask(title) {
 
 function deleteTask(taskId) {
   // Intern 2: remove the selected task from the tasks array.
+  tasks = tasks.filter(task => task.id !== taskId);
+  renderTasks();
 }
 
 function toggleTaskCompleted(taskId) {

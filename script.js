@@ -74,6 +74,11 @@ taskForm.addEventListener("submit", (event) => {
 
   const title = taskInput.value.trim();
 
+  if (!title) {
+  formMessage.textContent = "Task name cannot be empty.";
+  return;
+}
+formMessage.textContent = "";
  if (!title) return;
   addTask(title);
   

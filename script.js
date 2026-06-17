@@ -53,8 +53,8 @@ function addTask(title) {
   // Intern 1: create a task object and add it to the tasks array.
 }
 
-function editTask(taskId) {
-  // Intern 1: allow the selected task title to be changed.
+function addTask(title) {
+  tasks.push({ id: Date.now(), title: title, completed: false });
 }
 
 function deleteTask(taskId) {
@@ -74,8 +74,9 @@ taskForm.addEventListener("submit", (event) => {
 
   const title = taskInput.value.trim();
 
-  // Intern 1: prevent empty task names before calling addTask.
+ if (!title) return;
   addTask(title);
+  
   taskInput.value = "";
   renderTasks();
 });

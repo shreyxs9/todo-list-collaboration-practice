@@ -50,12 +50,7 @@ function getVisibleTasks() {
   }
   if (currentFilter === "completed") {
     return tasks.filter(task => task.completed);
-  }
-  return tasks;
-}
-
-function addTask(title) {
-  // Intern 1: create a task object and add it to the tasks array.
+  }  return tasks;
 }
 
 function addTask(title) {
@@ -63,29 +58,27 @@ function addTask(title) {
 }
 
 function deleteTask(taskId) {
-  // Intern 2: remove the selected task from the tasks array.
+  console.log("Deleting task with taskId:", taskId);
   tasks = tasks.filter(task => task.id !== taskId);
   renderTasks();
 }
 
 function toggleTaskCompleted(taskId) {
   // Intern 2: switch the selected task between pending and completed.
+  console.log("Toggling task completed for taskId:", taskId);
   const task = tasks.find(task => task.id === taskId);
   if (task) {
     task.completed = !task.completed;
   }
-  renderTasks();
 }
 
 function setFilter(filterName) {
-  // Intern 2: update currentFilter and the active filter button.
   currentFilter = filterName;
   document.querySelectorAll('.filter-button').forEach(btn => {
     btn.classList.toggle('active', btn.dataset.filter === filterName);
   });
 
-  renderTasks();
-}
+  renderTasks();}
 
 taskForm.addEventListener("submit", (event) => {
   event.preventDefault();
@@ -115,13 +108,13 @@ taskList.addEventListener("click", (event) => {
 
   if (event.target.classList.contains("delete")) {
     deleteTask(taskId);
+    return;
   }
 
   if (event.target.classList.contains("edit")) {
     editTask(taskId);
+    return;
   }
-
-  renderTasks();
 });
 
 taskList.addEventListener("change", (event) => {

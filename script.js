@@ -50,10 +50,13 @@ function getVisibleTasks() {
   }
   if (currentFilter === "completed") {
     return tasks.filter(task => task.completed);
-  }  return tasks;
   }
   return tasks;
+}
 
+function addTask(title) {
+  tasks.push({ id: Date.now(), title: title, completed: false });
+}
 
 function addTask(title) {
   tasks.push({ id: Date.now(), title: title, completed: false });

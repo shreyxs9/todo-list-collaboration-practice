@@ -45,7 +45,12 @@ function renderTasks() {
 }
 
 function getVisibleTasks() {
-  // Intern 2: return tasks based on currentFilter: all, pending, or completed.
+  if (currentFilter === "pending") {
+    return tasks.filter(task => !task.completed);
+  }
+  if (currentFilter === "completed") {
+    return tasks.filter(task => task.completed);
+  }
   return tasks;
 }
 
@@ -102,6 +107,12 @@ function toggleTaskCompleted(taskId) {
 
 function setFilter(filterName) {
   // Intern 2: update currentFilter and the active filter button.
+  currentFilter = filterName;
+  document.querySelectorAll('.filter-button').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.filter === filterName);
+  });
+
+  renderTasks();
 }
 
 taskForm.addEventListener("submit", (event) => {

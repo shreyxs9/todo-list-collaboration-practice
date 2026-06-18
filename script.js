@@ -50,11 +50,48 @@ function getVisibleTasks() {
   }
   if (currentFilter === "completed") {
     return tasks.filter(task => task.completed);
+<<<<<<< HEAD
   }  return tasks;
+=======
+  }
+  return tasks;
 }
 
 function addTask(title) {
   tasks.push({ id: Date.now(), title: title, completed: false });
+>>>>>>> 97bdb6e5ae5d9483f24669b8d8d20e7d316abc3d
+}
+
+function editTask(taskId) {
+  const task = tasks.find(task => task.id === taskId);
+  if (!task) return;
+
+  const taskItem = taskList.querySelector(`[data-id="${taskId}"]`);
+  const taskTitle = taskItem.querySelector(".task-title");
+  const editButton = taskItem.querySelector(".task-action.edit");
+
+  const input = document.createElement("input");
+  input.type = "text";
+  input.value = task.title;
+  input.className = "task-edit-input";
+  taskTitle.replaceWith(input);
+  input.focus();
+
+  editButton.textContent = "Save";
+  editButton.classList.add("saving");
+
+  function saveEdit() {
+    const newTitle = input.value.trim();
+    if (newTitle) task.title = newTitle;
+    renderTasks();
+  }
+
+  editButton.onclick = (e) => { e.stopPropagation(); saveEdit(); };
+  input.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") saveEdit();
+    if (e.key === "Escape") renderTasks();
+  });
+  input.addEventListener("blur", () => setTimeout(saveEdit, 100));
 }
 
 function deleteTask(taskId) {
@@ -100,9 +137,7 @@ formMessage.textContent = "";
 taskList.addEventListener("click", (event) => {
   const taskItem = event.target.closest(".task-item");
 
-  if (!taskItem) {
-    return;
-  }
+  if (!taskItem) return;
 
   const taskId = Number(taskItem.dataset.id);
 
@@ -111,7 +146,7 @@ taskList.addEventListener("click", (event) => {
     return;
   }
 
-  if (event.target.classList.contains("edit")) {
+  if (event.target.classList.contains("edit") && !event.target.classList.contains("saving")) {
     editTask(taskId);
     return;
   }
